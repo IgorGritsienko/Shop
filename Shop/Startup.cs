@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shop.Data.Interfaces;
+using Shop.Data.mocks;
 
 namespace Shop
 {
@@ -17,6 +19,10 @@ namespace Shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();  // from NuGet
+            services.AddTransient<IAllCars, MockCars>();    // объединить интерфейс и класс, реализующий этот интерфейс
+            services.AddTransient<ICarsCategory, MockCategory>();
+
+            services.AddMvc(options => options.EnableEndpointRouting = false); // ??
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,9 +31,8 @@ namespace Shop
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles(); // from nuGet
-#pragma warning disable MVC1005 // Cannot use UseMvc with Endpoint Routing.
             app.UseMvcWithDefaultRoute();   // отслеживание URL адреса. если не указан контроллер и html страница, то по умолчанию используется URL по умолчанию
-#pragma warning restore MVC1005 // Cannot use UseMvc with Endpoint Routing.
+
 
 
             //app.UseRouting();
