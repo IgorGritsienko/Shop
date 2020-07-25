@@ -1,23 +1,24 @@
-﻿using Shop.Data.Interfaces;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Shop.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shop.Data.mocks
+namespace Shop.Data
 {
-    public class MockCars : IAllCars
+    public class DBObjects
     {
-        private readonly ICarsCategory _categoryCars = new MockCategory();
-
-        public IEnumerable<Car> Cars
+        public static void Initial(AppDBContent content)
         {
-            get
+            if (!content.Category.Any())
+                content.Category.AddRange(Categories.Select(c => c.Value));
+
+            if (!content.Car.Any())
             {
-                return new List<Car>
-                {
-                    new Car 
+                content.AddRange(
+                    new Car
                     {
                         name = "Tesla Model S",
                         shortDesc = "Быстрый автомобиль",
@@ -26,9 +27,9 @@ namespace Shop.Data.mocks
                         price = 45000,
                         isFavourite = true,
                         available = true,
-                        Category =  _categoryCars.AllCategories.First()
+                        Category = Categories["Электромобили"]
                     },
-                    new Car               
+                    new Car
                     {
                         name = "Ford Fiesta",
                         shortDesc = "Тихий автомобиль",
@@ -37,7 +38,7 @@ namespace Shop.Data.mocks
                         price = 10000,
                         isFavourite = true,
                         available = true,
-                        Category =  _categoryCars.AllCategories.Last()
+                        Category = Categories["Классические автомобили"]
                     },
                     new Car
                     {
@@ -48,7 +49,7 @@ namespace Shop.Data.mocks
                         price = 62000,
                         isFavourite = true,
                         available = true,
-                        Category =  _categoryCars.AllCategories.Last()
+                        Category = Categories["Классические автомобили"]
                     },
                     new Car
                     {
@@ -59,7 +60,7 @@ namespace Shop.Data.mocks
                         price = 65000,
                         isFavourite = false,
                         available = false,
-                        Category =  _categoryCars.AllCategories.Last()
+                        Category = Categories["Классические автомобили"]
                     },
                     new Car
                     {
@@ -70,18 +71,31 @@ namespace Shop.Data.mocks
                         price = 15000,
                         isFavourite = true,
                         available = true,
-                        Category =  _categoryCars.AllCategories.First()
+                        Category = Categories["Электромобили"]
                     }
-                };
+                    );
             }
+            content.SaveChanges();
         }
 
-
-        public IEnumerable<Car> getFavCars { get; set; }
-
-        public Car getObjectCar(int carId)
+        private static Dictionary<string, Category> category;
+        public static Dictionary<string, Category> Categories
         {
-            throw new NotImplementedException();
+            get
+            {
+                if (category == null)
+                {
+                    var list = new Category[] {
+                        new Category { categoryName = "Электромобили", description = "Современный вид транспорта" },
+                        new Category { categoryName = "Классические автомобили", description = "Машины с двигателем внутреннего сгорания" }
+                    };
+
+                    category = new Dictionary<string, Category>();
+                    foreach (Category el in list)
+                        category.Add(el.categoryName, el);
+                }
+                return category;
+            }
         }
     }
 }

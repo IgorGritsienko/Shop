@@ -15,7 +15,7 @@ namespace Shop.Data.mocks
             {
                 return new List<Category>
                 {
-                    new Category { categoryName = "Элеткромобили", description = "Современный вид транспорта" },
+                    new Category { categoryName = "Электромобили", description = "Современный вид транспорта" },
                     new Category { categoryName = "Классические автомобили", description = "Машины с двигателем внутреннего сгорания" }
                 };
             }
