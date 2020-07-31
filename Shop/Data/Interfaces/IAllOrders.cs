@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Shop.Data.Interfaces
 {
-    public interface IAllCars
+    public interface IAllOrders 
     {
-        IEnumerable<Car> Cars { get; }
-        IEnumerable<Car> getFavCars { get; }
-        Car getObjectCar(int carId); 
+        void createOrder(Order order);
     }
 }
