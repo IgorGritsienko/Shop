@@ -10,6 +10,7 @@ namespace Shop.Data.mocks
     public class MockCars : IAllCars
     {
         private readonly ICarsCategory _categoryCars = new MockCategory();
+        
 
         public IEnumerable<Car> Cars
         {
@@ -26,7 +27,7 @@ namespace Shop.Data.mocks
                         price = 45000,
                         isFavourite = true,
                         available = true,
-                        Category =  _categoryCars.AllCategories.First()
+                        Category = _categoryCars.AllCategories.First()
                     },
                     new Car               
                     {

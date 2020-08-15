@@ -21,10 +21,9 @@ namespace Shop.Controllers
         }
 
         [Route("Cars/List")]    // при переходе на эти адреса вызывается функция ViewResult List
-        [Route("Cars/List/{category}")]
-        public ViewResult List(string category)
+        [Route("Cars/List/{category}")]     // {category} совпадает с аргументом category
+        public ViewResult List(string category)     //ViewResult - результат в виде html страницы
         {
-            string _category = category;
             IEnumerable<Car> cars = null;
             string currCategory = "";
             if (string.IsNullOrEmpty(category))

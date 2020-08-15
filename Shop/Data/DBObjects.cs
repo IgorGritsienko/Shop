@@ -10,7 +10,7 @@ namespace Shop.Data
 {
     public class DBObjects
     {
-        public static void Initial(AppDBContent content)
+        public static void Initial(AppDBContent content)    // вызывается каждый раз при старте программы добавляет объекты в бд (из startup.cs)
         {
             if (!content.Category.Any())
                 content.Category.AddRange(Categories.Select(c => c.Value));

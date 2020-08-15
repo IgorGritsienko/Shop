@@ -31,7 +31,7 @@ namespace Shop.Controllers
 
             if (shopCart.listShopItems.Count == 0)
             {
-                ModelState.AddModelError("","Для покупки необходимо выбрать хотя бы один товар.");
+                ModelState.AddModelError("", "Для покупки необходимо выбрать хотя бы один товар.");
             }
 
             if (ModelState.IsValid)

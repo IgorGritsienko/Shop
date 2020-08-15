@@ -24,7 +24,7 @@ namespace Shop.Data.Models
         public string surname { get; set; }
 
         [Display(Name = "Введите адрес")]
-        [StringLength(40, MinimumLength =5 )]
+        [StringLength(40, MinimumLength = 5)]
         [Required(ErrorMessage = "Длина адреса должна быть не менее 5 символов")]
         public string address { get; set; }
 

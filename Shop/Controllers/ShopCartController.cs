@@ -35,7 +35,7 @@ namespace Shop.Controllers
         public RedirectToActionResult addToCart(int id) // добавление товаров в корзину и переадресовывание на другугю страницу
         {
             var item = _carRep.Cars.FirstOrDefault(i => i.id == id);
-            if (item != null)
+            if (item != null)   
             {
                 _shopCart.AddToCart(item);
             }
